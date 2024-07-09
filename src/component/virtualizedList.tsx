@@ -30,8 +30,8 @@ const VirtulizedList: React.FC<Props> = ({
   selectItem,
   removeSelection,
 }) => {
-  const checked = useRef<string[]>([]);
-  const [showSecondaryAction, setShowSecondaryAction] = useState(false);
+  const checked = React.useRef<string[]>([]);
+  const [showSecondaryAction, setShowSecondaryAction] = React.useState(false);
 
   // Simulate user authentication
   const userLoggedIn = true; // Replace with your actual authentication logic
@@ -40,7 +40,7 @@ const VirtulizedList: React.FC<Props> = ({
     feature_delete: false, // Replace with actual feature_delete value
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (userLoggedIn && currentUser) {
       // Simulate fetching user data from a local data source
       // Replace this with your actual data fetching logic

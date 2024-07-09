@@ -23,9 +23,9 @@ interface SearchResult {
 }
 
 const page = () => {
-  const [input, setInput] = useState('');
-  const [firestoreData, setFirestoreData] = useState<FirestoreData[]>([]);
-  const [selected, setSelected] = useState<string[]>([]);
+  const [input, setInput] = React.useState('');
+  const [firestoreData, setFirestoreData] = React.useState<FirestoreData[]>([]);
+  const [selected, setSelected] = React.useState<string[]>([]);
   const currentUser = React.useRef('');
 
   React.useEffect(() => {
@@ -43,7 +43,7 @@ const page = () => {
     fetchData();
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetchData();
   }, [input]);
 
