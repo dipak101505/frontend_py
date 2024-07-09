@@ -22,7 +22,7 @@ interface SearchResult {
   };
 }
 
-const page = () => {
+const Page = () => {
   const [input, setInput] = React.useState('');
   const [firestoreData, setFirestoreData] = React.useState<FirestoreData[]>([]);
   const [selected, setSelected] = React.useState<string[]>([]);
@@ -103,4 +103,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
