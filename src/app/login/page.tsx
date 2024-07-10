@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
 
 export default function LoginPage() {
-  // const router = useRouter();
-  // const { currentUser, userLoggedIn } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -39,18 +37,8 @@ export default function LoginPage() {
         console.log(data);
 
         if (data.userId) {
-          // Store the token in session storage
           sessionStorage.setItem('authToken', data.token);
-
-          // Redirect to the home page or another protected route
-          // Option 1: Using router.push
-          // router.push('/');
-
-          // Option 2: Using window.location.href
           window.location.href = '/';
-
-          // Option 3: Using router.replace (for history replacement)
-          // router.replace('/');
         } else {
           setPasswordError(data.message);
         }

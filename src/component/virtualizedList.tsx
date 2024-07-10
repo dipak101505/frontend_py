@@ -5,18 +5,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import { useRef, useEffect, useState } from 'react';
 
 interface FirestoreData {
   index: number;
   title: string;
   text: string;
   url: string;
-}
-
-interface User {
-  email: string;
-  feature_delete: boolean;
 }
 
 interface Props {
@@ -31,30 +25,9 @@ const VirtulizedList: React.FC<Props> = ({
   removeSelection,
 }) => {
   const checked = React.useRef<string[]>([]);
-  const [showSecondaryAction, setShowSecondaryAction] = React.useState(false);
+  const [showSecondaryAction, setShowSecondaryAction] = React.useState(false); //feature flag @nitish
 
-  // Simulate user authentication
-  const userLoggedIn = true; // Replace with your actual authentication logic
-  const currentUser: User = {
-    email: 'test@example.com', // Replace with actual user email
-    feature_delete: false, // Replace with actual feature_delete value
-  };
-
-  React.useEffect(() => {
-    if (userLoggedIn && currentUser) {
-      // Simulate fetching user data from a local data source
-      // Replace this with your actual data fetching logic
-      const mockUserData: User = {
-        email: currentUser.email,
-        feature_delete: currentUser.feature_delete,
-      };
-
-      setShowSecondaryAction(mockUserData.feature_delete);
-    } else {
-      console.log('No user is signed in.');
-    }
-  }, []);
-
+  //feature flag @nitish
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.current.indexOf(value);
     const newChecked = [...checked.current];

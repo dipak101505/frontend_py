@@ -3,9 +3,7 @@ import TemporaryDrawer from '@/component/responsiveDrawer';
 import VirtulizedList from '@/component/virtualizedList';
 import * as React from 'react';
 
-import { useState, useEffect } from 'react';
-
-interface FirestoreData {
+interface SupabaseData {
   index: number;
   title: string;
   text: string;
@@ -23,36 +21,27 @@ interface SearchResult {
 }
 
 const Page = () => {
-  const [input, setInput] = React.useState('');
-  const [firestoreData, setFirestoreData] = React.useState<FirestoreData[]>([]);
-  const [selected, setSelected] = React.useState<string[]>([]);
-  const currentUser = React.useRef('');
+  const inputRef = React.useRef('');
+  const [supabaseData, setSupabaseData] = React.useState<SupabaseData[]>([]);
+  const [selected, setSelected] = React.useState<string[]>([]); //additional feature flag requirement by Nitesh
 
   React.useEffect(() => {
     const authToken = sessionStorage.getItem('authToken');
 
     if (!authToken) {
       window.location.href = '/login';
-    } else {
-      currentUser.current = authToken;
     }
   }, []);
 
   const handleSearch = (searchQuery: string) => {
-    setInput(searchQuery);
+    inputRef.current = searchQuery;
     fetchData();
   };
 
-  React.useEffect(() => {
-    fetchData();
-  }, [input]);
-
-  // Simulate fetching data from a local data source
   const fetchData = async () => {
-    // Replace this with your actual data fetching logic
     try {
       const response = await fetch(
-        `http://35.208.215.114:8005/search/${input}`,
+        `http://35.208.215.114:8005/search/${inputRef.current}`,
         {
           method: 'GET',
           headers: {
@@ -70,14 +59,14 @@ const Page = () => {
       console.log(data.data);
 
       if (data.data) {
-        // Transform the API response to the FirestoreData format
+        // Transforming the API response to the Data format
         const transformedData = data.data.map((item, index) => ({
           index,
           title: item.result.title,
           text: item.result.matched_sentence,
-          url: item.result.url, // You'll need to add the URL logic here
+          url: item.result.url,
         }));
-        setFirestoreData(transformedData);
+        setSupabaseData(transformedData);
       } else {
         console.error('Error fetching data:', data.message);
       }
@@ -92,10 +81,9 @@ const Page = () => {
         onSearch={handleSearch}
         deleteSelection={selected}
         setSelection={setSelected}
-        currentUser={currentUser.current}
       />
       <VirtulizedList
-        data={firestoreData}
+        data={supabaseData}
         selectItem={setSelected}
         removeSelection={selected}
       />

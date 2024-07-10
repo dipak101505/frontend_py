@@ -14,16 +14,14 @@ import SearchIcon from '@mui/icons-material/Search';
 
 interface Props {
   onSearch: (searchQuery: string) => void;
-  deleteSelection: string[];
-  setSelection: (selection: string[]) => void;
-  currentUser: any; // Replace with your actual user type
+  deleteSelection: string[]; //feature flag @ nitesh
+  setSelection: (selection: string[]) => void; // feature flag @nitesh
 }
 
 export default function TemporaryDrawer({
   onSearch,
   deleteSelection,
   setSelection,
-  currentUser,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -49,7 +47,7 @@ export default function TemporaryDrawer({
     }
   };
 
-  const toggleDrawer = (newOpen: true | false) => () => {
+  const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
@@ -101,11 +99,9 @@ export default function TemporaryDrawer({
           cursor: 'pointer',
         }}
         onMouseEnter={(e: React.MouseEvent<SVGElement>) => {
-          // Cast e.target to SVGElement
           (e.target as SVGElement).style.cursor = 'pointer';
         }}
         onMouseLeave={(e: React.MouseEvent<SVGElement>) => {
-          // Cast e.target to SVGElement
           (e.target as SVGElement).style.cursor = 'default';
         }}
       />
@@ -122,11 +118,9 @@ export default function TemporaryDrawer({
           <CloseIcon
             style={{ cursor: 'pointer' }}
             onMouseEnter={(e: React.MouseEvent<SVGElement>) => {
-              // Cast e.target to SVGElement
               (e.target as SVGElement).style.cursor = 'pointer';
             }}
             onMouseLeave={(e: React.MouseEvent<SVGElement>) => {
-              // Cast e.target to SVGElement
               (e.target as SVGElement).style.cursor = 'default';
             }}
             onClick={handleClose()}
@@ -150,8 +144,8 @@ export default function TemporaryDrawer({
             placeholder="Search"
             id="outlined-basic"
             size="small"
-            value={searchQuery} // Bind value to state
-            onChange={(e) => setSearchQuery(e.target.value)} // Update state on change
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             sx={{
               ml: 1,
               borderRadius: 2,
@@ -161,7 +155,7 @@ export default function TemporaryDrawer({
           />
           <Button
             variant="contained"
-            onClick={() => onSearch(searchQuery)} // Trigger search on click
+            onClick={() => onSearch(searchQuery)}
             sx={{ marginLeft: '10px', marginTop: '12px' }}
           >
             <SearchIcon />
